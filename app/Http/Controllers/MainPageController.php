@@ -40,6 +40,6 @@ class MainPageController extends Controller
     }
 
     public function getGeoData() {
-        $countries = GeoCountry::select('')
+
     }
 }
