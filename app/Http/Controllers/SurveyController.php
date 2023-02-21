@@ -27,4 +27,9 @@ class SurveyController extends Controller
             ]
         ], 200);
     }
+
+    public function saveSurvey(Request $request) {
+        print_r($request->input('questions'));
+        print_r($request->input('respondent_profile'));
+    }
 }

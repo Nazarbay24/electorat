@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\GeoCountry;
 use App\Models\ProfileManager;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -36,5 +37,9 @@ class MainPageController extends Controller
             ],
             'statistics' => $statistics
         ], 200);
+    }
+
+    public function getGeoData() {
+        $countries = GeoCountry::select('')
     }
 }

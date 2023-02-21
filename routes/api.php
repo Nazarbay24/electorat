@@ -14,13 +14,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::post('login', [\App\Http\Controllers\AuthController::class, 'login']);
+Route::group(['prefix' => '{locale}', 'where' => ['locale' => '[a-zA-Z]{2}'], 'middleware' => 'setlocale'], function()
+{
+    Route::post('login', [\App\Http\Controllers\AuthController::class, 'login']);
 
-Route::group(['middleware' => 'auth:sanctum'], function () {
+    Route::group(['middleware' => 'auth:sanctum'], function ()
+    {
+        Route::get('main-page', [\App\Http\Controllers\MainPageController::class, 'main']);
 
-    Route::get('main-page', [\App\Http\Controllers\MainPageController::class, 'main']);
+        Route::get('get-survey-data', [\App\Http\Controllers\SurveyController::class, 'getSurveyData']);
 
-    Route::get('get-survey-data', [\App\Http\Controllers\SurveyController::class, 'getSurveyData']);
+        Route::post('save-survey', [\App\Http\Controllers\SurveyController::class, 'saveSurvey']);
 
-    Route::get('logout', [\App\Http\Controllers\AuthController::class, 'logout']);
+        Route::get('logout', [\App\Http\Controllers\AuthController::class, 'logout']);
+    });
 });
