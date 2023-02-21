@@ -14,6 +14,7 @@ class ProfileManager extends Authenticatable
     use HasApiTokens, HasFactory, Notifiable;
 
     protected $table = 'profile_manager';
+    public $timestamps = false;
 
     public function getGeo() {
         $geoCountry = new GeoCountry();
