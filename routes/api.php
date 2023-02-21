@@ -26,6 +26,8 @@ Route::group(['prefix' => '{locale}', 'where' => ['locale' => '[a-zA-Z]{2}'], 'm
 
         Route::post('save-survey', [\App\Http\Controllers\SurveyController::class, 'saveSurvey']);
 
+        Route::get('get-geo-data', [\App\Http\Controllers\MainPageController::class, 'getGeoData']);
+
         Route::get('logout', [\App\Http\Controllers\AuthController::class, 'logout']);
     });
 });

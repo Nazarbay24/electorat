@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\GeoCountry;
+use App\Models\GeoPunkt;
+use App\Models\GeoRegion;
 use App\Models\ProfileManager;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -39,7 +41,15 @@ class MainPageController extends Controller
         ], 200);
     }
 
-    public function getGeoData() {
+    public function getGeoData($locale) {
+        $countries = GeoCountry::select('id', 'text_'.$locale.' as name')->get()->all();
+        $regions = GeoRegion::select('id', 'country_id', 'text_'.$locale.' as name')->orderBy('sortby')->get()->all();
+        $punkts = GeoPunkt::select('id', 'region_id', 'text_'.$locale.' as name')->orderBy('region_id')->orderBy('sortby')->get()->all();
 
+        return response()->json([
+            'countries' => $countries,
+            'regions' => $regions,
+            'punkts' => $punkts
+        ], 200);
     }
 }
