@@ -7,6 +7,7 @@ use App\Models\Gender;
 use App\Models\Lang;
 use App\Models\PollsQuestion;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpKernel\Profiler\Profile;
 
 class SurveyController extends Controller
 {
@@ -29,7 +30,11 @@ class SurveyController extends Controller
     }
 
     public function saveSurvey(Request $request) {
-        print_r($request->input('questions'));
-        print_r($request->input('respondent_profile'));
+        $responses = json_decode($request->input('responses'), true);
+        $respondentProfile = json_decode($request->input('respondent_profile'), true);
+
+        $profileManager = Profile::findOrFail($request->user()->id);
+
+
     }
 }

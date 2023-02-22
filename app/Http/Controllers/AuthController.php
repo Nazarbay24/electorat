@@ -15,7 +15,7 @@ class AuthController extends Controller
             ->first();
 
         if( !$user ) {
-            return response()->json(['message' => __('Неверный логин или пароль')], 401);
+            return response()->json(['message' => __('Неверный логин или пароль')], 400);
         }
 
         $user->last_visit = date("Y-m-d H:i:s");
