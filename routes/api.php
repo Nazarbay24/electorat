@@ -28,6 +28,8 @@ Route::group(['prefix' => '{locale}', 'where' => ['locale' => '[a-zA-Z]{2}'], 'm
 
         Route::get('get-geo-data', [\App\Http\Controllers\MainPageController::class, 'getGeoData']);
 
+        Route::post('set-geo', [\App\Http\Controllers\MainPageController::class, 'setGeo']);
+
         Route::get('logout', [\App\Http\Controllers\AuthController::class, 'logout']);
     });
 });

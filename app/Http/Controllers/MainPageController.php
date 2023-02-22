@@ -52,4 +52,24 @@ class MainPageController extends Controller
             'punkts' => $punkts
         ], 200);
     }
+
+    public function setGeo($locale, Request $request) {
+        $request->validate([
+            "punkt_id" => "integer",
+        ]);
+
+        GeoPunkt::findOrFail($request->punkt_id);
+        $update = ProfileManager::where('id', '=', $request->user()->id)->update(['punkt_id' => $request->punkt_id]);
+
+        if($update) {
+            return response()->json([
+                'message' => _('Успешно изменено')
+            ], 200);
+        }
+        else {
+            return response()->json([
+                'message' => _('Не удалось изменить')
+            ], 400);
+        }
+    }
 }
