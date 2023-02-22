@@ -10,4 +10,5 @@ class PollsRespondent extends Model
     use HasFactory;
 
     protected $table = 'polls_respondent';
+    public $timestamps = false;
 }
