@@ -63,12 +63,12 @@ class MainPageController extends Controller
 
         if($update) {
             return response()->json([
-                'message' => _('Успешно изменено')
+                'message' => __('Успешно изменено')
             ], 200);
         }
         else {
             return response()->json([
-                'message' => _('Не удалось изменить')
+                'message' => __('Не удалось изменить')
             ], 400);
         }
     }
