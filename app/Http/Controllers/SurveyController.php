@@ -33,8 +33,8 @@ class SurveyController extends Controller
     }
 
     public function saveSurvey(Request $request) {
-        $responses = json_decode($request->input('responses'));
-        $respondentProfile = json_decode($request->input('respondent_profile'));
+        $responses = $request->input('responses');
+        $respondentProfile = $request->input('respondent_profile');
 
         $profileManager = ProfileManager::findOrFail($request->user()->id);
 
