@@ -41,10 +41,10 @@ class SurveyController extends Controller
         $pollsRespondent = new PollsRespondent();
         $pollsRespondent->manager_id = $profileManager->id;
         $pollsRespondent->punkt_id = $profileManager->punkt_id;
-        $pollsRespondent->age_id = $respondentProfile['age_id'];
-        $pollsRespondent->gender_id = $respondentProfile['gender_id'];
-        $pollsRespondent->lang_id = $respondentProfile['lang_id'];
-        $pollsRespondent->from_punkt_id = $respondentProfile['punkt_id'];
+        $pollsRespondent->age_id = $respondentProfile->age_id;
+        $pollsRespondent->gender_id = $respondentProfile->gender_id;
+        $pollsRespondent->lang_id = $respondentProfile->lang_id;
+        $pollsRespondent->from_punkt_id = $respondentProfile->punkt_id;
         $pollsRespondent->regdate = date('Y-m-d H:i:s');
 
         if(!$pollsRespondent->save()) {
@@ -59,19 +59,19 @@ class SurveyController extends Controller
                 $item = [];
                 $item['respondent_id'] = $pollsRespondent->id;
                 $item['manager_id'] = $profileManager->id;
-                $item['question_id'] = $response['question_id'];
+                $item['question_id'] = $response->question_id;
                 $item['regdate'] = date('Y-m-d H:i:s');
                 $item['answer_id'] = $answer_id;
                 $item['comment'] = '';
                 $responseRows[] = $item;
             }
 
-            if(isset($response['comment'])) {
+            if(isset($response->comment)) {
                 $item = [];
-                $item['comment'] = $response['comment'];
+                $item['comment'] = $response->comment;
                 $item['respondent_id'] = $pollsRespondent->id;
                 $item['manager_id'] = $profileManager->id;
-                $item['question_id'] = $response['question_id'];
+                $item['question_id'] = $response->question_id;
                 $item['answer_id'] = 0;
                 $item['regdate'] = date('Y-m-d H:i:s');
                 $responseRows[] = $item;
