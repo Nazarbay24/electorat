@@ -33,15 +33,15 @@ class SurveyController extends Controller
     }
 
     public function saveSurvey(Request $request) {
-        $responses = $request->input('responses');
-        $respondentProfile = $request->input('respondent_profile');
+        $responses = $request->responses;
+        $respondentProfile = $request->respondent_profile;
 
         $profileManager = ProfileManager::findOrFail($request->user()->id);
 
         $pollsRespondent = new PollsRespondent();
         $pollsRespondent->manager_id = $profileManager->id;
         $pollsRespondent->punkt_id = $profileManager->punkt_id;
-        $pollsRespondent->age_id = $respondentProfile['age_id'];
+        $pollsRespondent->age_id = $respondentProfile->age_id;
         $pollsRespondent->gender_id = $respondentProfile['gender_id'];
         $pollsRespondent->lang_id = $respondentProfile['lang_id'];
         $pollsRespondent->from_punkt_id = $respondentProfile['punkt_id'];
