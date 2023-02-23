@@ -16,6 +16,8 @@ class MainPageController extends Controller
         $user = $request->user();
 
         $userModel = $profileManager->findOrFail($user->id);
+        $userModel->last_visit = date('Y-m-d H:i:s');
+        $userModel->save();
         $geo = $userModel->getGeo();
         $statistics = $userModel->getStatistics();
         $regDate = Carbon::create($userModel->regdate)->isoFormat('D MMMM Y г.');
