@@ -58,7 +58,7 @@ class SurveyController extends Controller
         $pollsRespondent->gender_id = $respondentProfile['gender_id'];
         $pollsRespondent->lang_id = $respondentProfile['lang_id'];
         $pollsRespondent->from_punkt_id = $respondentProfile['punkt_id'];
-        $pollsRespondent->coordinates = $respondentProfile['coordinates'];
+        $pollsRespondent->coordinates = $respondentProfile['coordinates'] ?: '';
         $pollsRespondent->regdate = date('Y-m-d H:i:s');
 
         if(!$pollsRespondent->save()) {
