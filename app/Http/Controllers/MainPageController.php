@@ -76,7 +76,7 @@ class MainPageController extends Controller
     }
 
     public function getlocals($locale, $punkt_id) {
-        $data = GeoLocal::select('id', 'region_id', 'text_'.$locale.' as name')->where('punkt_id', $punkt_id)->orderBy('sortby')->get()->all();
+        $data = GeoLocal::select('id', 'punkt_id', 'text_'.$locale.' as name')->where('punkt_id', $punkt_id)->orderBy('sortby')->get()->all();
 
         return response()->json([
             'data' => $data,
