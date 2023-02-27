@@ -43,7 +43,7 @@ class SurveyController extends Controller
             "respondent_profile.age_id" => "required|integer",
             "respondent_profile.gender_id" => "required|integer",
             "respondent_profile.lang_id" => "required|integer",
-            "respondent_profile.coordinates" => "string|max:255",
+            "respondent_profile.coordinates" => "max:255",
         ]);
 
         $responses = $request->input('responses');
