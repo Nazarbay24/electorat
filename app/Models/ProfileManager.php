@@ -24,14 +24,17 @@ class ProfileManager extends Authenticatable
         $geoCountry = new GeoCountry();
         $geoRegion = new GeoRegion();
         $geoPunkt = new GeoPunkt();
+        $geoLocal = new GeoLocal();
 
         return $this->select(
                 'country.text_ru as country',
                 'region.text_ru as region',
                 'punkt.text_ru as punkt',
+                'local.text_ru as local',
             )
             ->where($this->getTable().'.id', $this->id)
-            ->leftJoin($geoPunkt->getTable().' as punkt', $this->getTable().'.punkt_id', '=', 'punkt.id')
+            ->leftJoin($geoPunkt->getTable().' as local', $this->getTable().'.local_id', '=', 'local.id')
+            ->leftJoin($geoPunkt->getTable().' as punkt', 'local.punkt_id', '=', 'punkt.id')
             ->leftJoin($geoRegion->getTable().' as region', 'punkt.region_id', '=', 'region.id')
             ->leftJoin($geoCountry->getTable().' as country', 'region.country_id', '=', 'country.id')
             ->first();

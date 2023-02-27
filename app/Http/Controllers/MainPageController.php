@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\GeoCountry;
+use App\Models\GeoLocal;
 use App\Models\GeoPunkt;
 use App\Models\GeoRegion;
 use App\Models\ProfileManager;
@@ -47,21 +48,23 @@ class MainPageController extends Controller
         $countries = GeoCountry::select('id', 'text_'.$locale.' as name')->get()->all();
         $regions = GeoRegion::select('id', 'country_id', 'text_'.$locale.' as name')->orderBy('sortby')->get()->all();
         $punkts = GeoPunkt::select('id', 'region_id', 'text_'.$locale.' as name')->orderBy('region_id')->orderBy('sortby')->get()->all();
+        $locals = GeoLocal::select('id', 'punkt_id', 'text_'.$locale.' as name')->orderBy('punkt_id')->orderBy('sortby')->get()->all();
 
         return response()->json([
             'countries' => $countries,
             'regions' => $regions,
-            'punkts' => $punkts
+            'punkts' => $punkts,
+            'locals' => $locals
         ], 200);
     }
 
     public function setGeo($locale, Request $request) {
         $request->validate([
-            "punkt_id" => "required|integer",
+            "local_id" => "required|integer",
         ]);
 
-        GeoPunkt::findOrFail($request->punkt_id);
-        $update = ProfileManager::where('id', '=', $request->user()->id)->update(['punkt_id' => $request->punkt_id]);
+        $local = GeoLocal::findOrFail($request->local_id);
+        $update = ProfileManager::where('id', '=', $request->user()->id)->update(['local_id' => $local->id, 'punkt_id' => $local->punkt_id]);
 
         if($update) {
             return response()->json([

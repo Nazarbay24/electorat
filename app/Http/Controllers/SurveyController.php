@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Age;
 use App\Models\Gender;
+use App\Models\GeoLocal;
 use App\Models\Lang;
 use App\Models\PollsQuestion;
 use App\Models\PollsRespondent;
@@ -39,7 +40,7 @@ class SurveyController extends Controller
             "responses.*.answer_ids" => "required|array",
             "responses.*.answer_ids.*" => "required|integer",
             "responses.*.comment" => "string|max:255",
-            "respondent_profile.punkt_id" => "required|integer",
+            "respondent_profile.local_id" => "required|integer",
             "respondent_profile.age_id" => "required|integer",
             "respondent_profile.gender_id" => "required|integer",
             "respondent_profile.lang_id" => "required|integer",
@@ -50,14 +51,16 @@ class SurveyController extends Controller
         $respondentProfile = $request->input('respondent_profile');
 
         $profileManager = ProfileManager::findOrFail($request->user()->id);
+        $local = GeoLocal::findOrFail($profileManager->local_id);
 
         $pollsRespondent = new PollsRespondent();
         $pollsRespondent->manager_id = $profileManager->id;
-        $pollsRespondent->punkt_id = $profileManager->punkt_id;
+        $pollsRespondent->local_id = $profileManager->local_id;
+        $pollsRespondent->punkt_id = $local->punkt_id;
         $pollsRespondent->age_id = $respondentProfile['age_id'];
         $pollsRespondent->gender_id = $respondentProfile['gender_id'];
         $pollsRespondent->lang_id = $respondentProfile['lang_id'];
-        $pollsRespondent->from_punkt_id = $respondentProfile['punkt_id'];
+        $pollsRespondent->from_local_id = $respondentProfile['local_id'];
         $pollsRespondent->coordinates = $respondentProfile['coordinates'] ?: '';
         $pollsRespondent->regdate = date('Y-m-d H:i:s');
 
