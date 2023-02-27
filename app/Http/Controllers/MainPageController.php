@@ -38,6 +38,7 @@ class MainPageController extends Controller
                 'country' => $geo->country,
                 'region' => $geo->region,
                 'punkt' => $geo->punkt,
+                'local' => $geo->local,
                 'regdate' => $regDate,
             ],
             'statistics' => $statistics
