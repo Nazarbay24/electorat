@@ -33,6 +33,19 @@ class SurveyController extends Controller
     }
 
     public function saveSurvey(Request $request) {
+        $request->validate([
+            "responses" => "required|array",
+            "responses.*.question_id" => "required|integer",
+            "responses.*.answer_ids" => "required|array",
+            "responses.*.answer_ids.*" => "required|integer",
+            "responses.*.comment" => "string|max:255",
+            "respondent_profile.punkt_id" => "required|integer",
+            "repondent_profile.age_id" => "required|integer",
+            "repondent_profile.gender_id" => "required|integer",
+            "repondent_profile.lang_id" => "required|integer",
+            "repondent_profile.coordinates" => "required|string|max:255",
+        ]);
+
         $responses = $request->input('responses');
         $respondentProfile = $request->input('respondent_profile');
 
@@ -45,6 +58,7 @@ class SurveyController extends Controller
         $pollsRespondent->gender_id = $respondentProfile['gender_id'];
         $pollsRespondent->lang_id = $respondentProfile['lang_id'];
         $pollsRespondent->from_punkt_id = $respondentProfile['punkt_id'];
+        $pollsRespondent->coordinates = $respondentProfile['coordinates'];
         $pollsRespondent->regdate = date('Y-m-d H:i:s');
 
         if(!$pollsRespondent->save()) {

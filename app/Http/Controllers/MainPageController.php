@@ -57,7 +57,7 @@ class MainPageController extends Controller
 
     public function setGeo($locale, Request $request) {
         $request->validate([
-            "punkt_id" => "integer",
+            "punkt_id" => "required|integer",
         ]);
 
         GeoPunkt::findOrFail($request->punkt_id);
