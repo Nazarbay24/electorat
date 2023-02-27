@@ -26,7 +26,13 @@ Route::group(['prefix' => '{locale}', 'where' => ['locale' => '[a-zA-Z]{2}'], 'm
 
         Route::post('save-survey', [\App\Http\Controllers\SurveyController::class, 'saveSurvey']);
 
-        Route::get('get-geo-data', [\App\Http\Controllers\MainPageController::class, 'getGeoData']);
+        //Route::get('get-geo-data', [\App\Http\Controllers\MainPageController::class, 'getGeoData']);
+
+        Route::get('get-regions', [\App\Http\Controllers\MainPageController::class, 'getRegions']);
+
+        Route::get('get-punkts', [\App\Http\Controllers\MainPageController::class, 'getPunkts']);
+
+        Route::get('get-locals', [\App\Http\Controllers\MainPageController::class, 'getLocals']);
 
         Route::post('set-geo', [\App\Http\Controllers\MainPageController::class, 'setGeo']);
 

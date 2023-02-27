@@ -59,6 +59,30 @@ class MainPageController extends Controller
         ], 200);
     }
 
+    public function getRegions($locale, $country_id) {
+        $data = GeoRegion::select('id', 'country_id', 'text_'.$locale.' as name')->where('country_id', $country_id)->orderBy('sortby')->get()->all();
+
+        return response()->json([
+            'data' => $data,
+        ], 200);
+    }
+
+    public function getPunkts($locale, $region_id) {
+        $data = GeoPunkt::select('id', 'region_id', 'text_'.$locale.' as name')->where('region_id', $region_id)->orderBy('sortby')->get()->all();
+
+        return response()->json([
+            'data' => $data,
+        ], 200);
+    }
+
+    public function getlocals($locale, $punkt_id) {
+        $data = GeoLocal::select('id', 'region_id', 'text_'.$locale.' as name')->where('punkt_id', $punkt_id)->orderBy('sortby')->get()->all();
+
+        return response()->json([
+            'data' => $data,
+        ], 200);
+    }
+
     public function setGeo($locale, Request $request) {
         $request->validate([
             "local_id" => "required|integer",
