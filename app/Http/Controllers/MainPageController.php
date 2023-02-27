@@ -60,7 +60,7 @@ class MainPageController extends Controller
     }
 
     public function getRegions($locale, $country_id) {
-        $data = GeoRegion::select('id', 'country_id', 'text_'.$locale.' as name')->where('country_id', $country_id)->orderBy('sortby')->get()->all();
+        $data = GeoRegion::select('id', 'country_id as parent_id', 'text_'.$locale.' as name')->where('parent_id', $country_id)->orderBy('sortby')->get()->all();
 
         return response()->json([
             'data' => $data,
@@ -68,7 +68,7 @@ class MainPageController extends Controller
     }
 
     public function getPunkts($locale, $region_id) {
-        $data = GeoPunkt::select('id', 'region_id', 'text_'.$locale.' as name')->where('region_id', $region_id)->orderBy('sortby')->get()->all();
+        $data = GeoPunkt::select('id', 'region_id as parent_id', 'text_'.$locale.' as name')->where('parent_id', $region_id)->orderBy('sortby')->get()->all();
 
         return response()->json([
             'data' => $data,
@@ -76,7 +76,7 @@ class MainPageController extends Controller
     }
 
     public function getlocals($locale, $punkt_id) {
-        $data = GeoLocal::select('id', 'punkt_id', 'text_'.$locale.' as name')->where('punkt_id', $punkt_id)->orderBy('sortby')->get()->all();
+        $data = GeoLocal::select('id', 'punkt_id as parent_id', 'text_'.$locale.' as name')->where('parent_id', $punkt_id)->orderBy('sortby')->get()->all();
 
         return response()->json([
             'data' => $data,
