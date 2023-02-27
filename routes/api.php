@@ -28,11 +28,11 @@ Route::group(['prefix' => '{locale}', 'where' => ['locale' => '[a-zA-Z]{2}'], 'm
 
         //Route::get('get-geo-data', [\App\Http\Controllers\MainPageController::class, 'getGeoData']);
 
-        Route::get('get-regions', [\App\Http\Controllers\MainPageController::class, 'getRegions']);
+        Route::get('get-regions/{country_id}', [\App\Http\Controllers\MainPageController::class, 'getRegions']);
 
-        Route::get('get-punkts', [\App\Http\Controllers\MainPageController::class, 'getPunkts']);
+        Route::get('get-punkts/{region_id}', [\App\Http\Controllers\MainPageController::class, 'getPunkts']);
 
-        Route::get('get-locals', [\App\Http\Controllers\MainPageController::class, 'getLocals']);
+        Route::get('get-locals/{punkt_id}', [\App\Http\Controllers\MainPageController::class, 'getLocals']);
 
         Route::post('set-geo', [\App\Http\Controllers\MainPageController::class, 'setGeo']);
 
