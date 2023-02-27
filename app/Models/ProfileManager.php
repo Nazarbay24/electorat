@@ -33,7 +33,7 @@ class ProfileManager extends Authenticatable
                 'local.text_ru as local',
             )
             ->where($this->getTable().'.id', $this->id)
-            ->leftJoin($geoPunkt->getTable().' as local', $this->getTable().'.local_id', '=', 'local.id')
+            ->leftJoin($geoLocal->getTable().' as local', $this->getTable().'.local_id', '=', 'local.id')
             ->leftJoin($geoPunkt->getTable().' as punkt', 'local.punkt_id', '=', 'punkt.id')
             ->leftJoin($geoRegion->getTable().' as region', 'punkt.region_id', '=', 'region.id')
             ->leftJoin($geoCountry->getTable().' as country', 'region.country_id', '=', 'country.id')

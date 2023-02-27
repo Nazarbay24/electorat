@@ -34,7 +34,7 @@ class MainPageController extends Controller
                 'position' => $userModel->position,
                 'email' => $userModel->email,
                 'mobile' => $userModel->mobile,
-                'punkt_id' => $userModel->punkt_id,
+                'local_id' => $userModel->local_id,
                 'country' => $geo->country,
                 'region' => $geo->region,
                 'punkt' => $geo->punkt,
