@@ -15,7 +15,6 @@ class MainPageController extends Controller
     public function main(Request $request, ProfileManager $profileManager)
     {
         $user = $request->user();
-
         $userModel = $profileManager->findOrFail($user->id);
         $userModel->last_visit = date('Y-m-d H:i:s');
         $userModel->save();
@@ -23,7 +22,10 @@ class MainPageController extends Controller
         $statistics = $userModel->getStatistics();
         $regDate = Carbon::create($userModel->regdate)->isoFormat('D MMMM Y г.');
 
+        $appVersion = config('app.version');
+
         return response()->json([
+            'app_version' => (int)$appVersion,
             'profile' => [
                 'name' => $userModel->name,
                 'surname' => $userModel->surname,
